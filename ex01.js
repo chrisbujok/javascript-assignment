@@ -3,15 +3,13 @@
 const _ = require('lodash');
 const assert = require('assert');
 
+/*
+  Used reduce() on arguments array for possibility to add multiple numbers.
+  Could be also implemented with function to add just a + b + c (only three numbers).
+*/
 const addFiveAndSixAnd = _.partial(
   function () {
-    return _.reduce(
-      arguments,
-      function(a, b) {
-        return a + b;
-      },
-      0
-    );
+    return [...arguments].reduce((a, b) => a + b, 0);
   },
   5,
   6
