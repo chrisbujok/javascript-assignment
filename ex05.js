@@ -12,11 +12,34 @@ The function should return an array containing the messages themselves, without 
     {
       message: 'Esse id amet quis eu esse aute officia ipsum.' // random
     }
-  
+
   Hint - try chaining some Array methods!
 
 */
 
-function getShortMessages(){
-  /* your code */
+const assert = require('assert');
+
+function getShortMessages(messages) {
+  return messages
+    .map(message => message.message)
+    .filter(message => message.length < 50);
 }
+
+console.log(getShortMessages(
+  [
+    { message: 'a'.repeat(50)},
+    { message: 'b'.repeat(49)}
+  ]
+));
+
+assert.deepEqual(
+  getShortMessages(
+    [
+      { message: 'a'.repeat(50)},
+      { message: 'b'.repeat(49)}
+    ]
+  ),
+  [
+    'b'.repeat(49)
+  ]
+);

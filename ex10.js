@@ -8,11 +8,11 @@ Create a spy that keeps track of how many times a function is called.
 ## Example
 
     var spy = Spy(console, 'error')
-    
+
     console.error('calling console.error')
     console.error('calling console.error')
     console.error('calling console.error')
-    
+
     console.log(spy.count) // 3
 
 ## Arguments
@@ -30,3 +30,27 @@ Create a spy that keeps track of how many times a function is called.
   * Functions have context, input and output. Make sure you consider the context, input to *and output from* the function you are spying on.
 
 */
+
+const assert = require('assert');
+
+function Spy(target, method) {
+  const spy = {
+    count: 0
+  };
+
+  const original = target[method];
+
+  target[method] = function() {
+    spy.count++;
+    original.apply(target, [...arguments]);
+  }
+
+  return spy;
+}
+
+const spy = Spy(console, 'error');
+
+console.error('test');
+console.error('test 2');
+
+assert.equal(spy.count, 2);

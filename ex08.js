@@ -5,29 +5,29 @@ More formally: Partial application refers to the process of fixing a number of a
 
 As an example, say we have a function add, that takes 2 arguments and adds them together:
 
-    
+
     function add(x, y) {
       return x + y
     }
-    
+
     add(10, 20) // => 30
 
 Now, pretend we have a function partiallyApply. partiallyApply takes a function, and some arguments to 'partially apply'.
 
 Here we 'partially apply' the first parameter, x, of our add function:
 
-    
+
     var addTen = partiallyApply(add, 10) // fix `x` to 10
 
 addTen is a new function that takes the y parameter of add. add has not yet been called!
 
 Once we pass the argument for y, we can execute the original add function:
 
-    
+
     addTen(20) // => 30
     addTen(100) // => 110
     addTen(0) // => 10
-    
+
     // etc
 
 All of the above examples are same as calling add(10, y), where y was supplied in the call to the appropriately named addTen.
@@ -42,16 +42,16 @@ You should use Function#apply to implement the partial application.
 
 Make sure all arguments passed to the returned logging function are printed.
 
- Print the output to the console directly 
+ Print the output to the console directly
 
 
 ## Example
 
-    
+
     var info = logger('INFO:')
     info('this is an info message')
     // INFO: this is an info message
-    
+
     var warn = logger('WARN:')
     warn('this is a warning message', 'with more info')
     // WARN: this is a warning message with more info
@@ -63,7 +63,7 @@ Make sure all arguments passed to the returned logging function are printed.
 ## Hints
 
 Remember console.log takes any number of arguments and prints them, separated by spaces:
-    
+
     console.log('hello', 'world') // => 'hello world'
     console.log(1,2,3) // => 1 2 3
 
@@ -71,13 +71,28 @@ We simply want to 'partially apply' the first argument to console.log.
 
 Function.prototype.apply allows us to execute a function, supply a new 'value for this' (we can ignore in this case), and then an array of arguments to apply to the function:
 
-    
+
     add(10, 20) // => 30
     add.apply(null, [10, 20]) // => 30
 
 Also contrast apply with Function.prototype.call:
-    
+
     add.apply(null, [10, 20]) // => 30
     add.call(null, 10, 20) // => 30
 
 */
+
+function logger(level, fn) {
+  return function() {
+    console.log.apply(
+      null,
+      [level].concat([...arguments])
+    )
+  };
+}
+
+const info = logger('INFO:');
+const warn = logger('WARN:');
+
+info('this is an info message');
+warn('this is a warning message', 'with more info');

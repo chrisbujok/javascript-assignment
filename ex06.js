@@ -10,16 +10,16 @@ You only need to check that the ids match.
       { id: 2 },
       { id: 3 }
     ]
-    
+
     // `checkUsersValid` is the function you'll define
     var testAllValid = checkUsersValid(goodUsers)
-    
+
     testAllValid([
       { id: 2 },
       { id: 1 }
     ])
     // => true
-    
+
     testAllValid([
       { id: 2 },
       { id: 4 },
@@ -33,3 +33,20 @@ You only need to check that the ids match.
 
 Tip: you can use array#some and Array#every or _.includes
 */
+
+const assert = require('assert');
+
+function checkUsersValid(validUsers) {
+  return function(users) {
+    return users.every(
+      user => validUsers.some(validUser => validUser.id === user.id)
+    );
+  }
+}
+
+const testAllValid = checkUsersValid([{ id: 1 }]);
+
+console.log(testAllValid([{ id: 1 }]));
+
+assert(testAllValid([{ id: 1 }]));
+assert(!testAllValid([{ id: 1 }, { id: 2 }]));

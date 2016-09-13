@@ -5,9 +5,10 @@
 
 // don't use loops, use as many lodash functions as you can.
 
-var _ = require('lodash');
+const _ = require('lodash');
+const assert = require('assert');
 
-var groups = [
+const groups = [
   { 'id': 1, 'name': 'Green', 'confirmed': false },
   { 'id': 2, 'name': 'Yellow', 'confirmed': true },
   { 'id': 3, 'name': 'Blue', 'confirmed': false },
@@ -18,9 +19,16 @@ var groups = [
   { 'id': 8, 'name': 'Octarine', 'confirmed': true }
 ];
 
-var group = function(groups){
-  /* your code here */
+const group = function(groups) {
+  return _
+    .partition(groups, 'confirmed')
+    .map(panel => panel.map(group => group.id))
+    .map(panel => _.chunk(panel, 2));
 }
 
-console.log( group(groups) );
+console.log(group(groups));
 // [ [ [ 2, 5 ], [ 6, 7 ], [ 8 ] ], [ [ 1, 3 ], [ 4 ] ] ]
+assert.deepEqual(
+  group(groups),
+  [ [ [ 2, 5 ], [ 6, 7 ], [ 8 ] ], [ [ 1, 3 ], [ 4 ] ] ]
+);

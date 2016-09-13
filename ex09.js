@@ -5,7 +5,7 @@ Your implementation should take a namespace string, and return a function that p
 
 Make sure all arguments passed to the returned logging function are printed.
 
- Print the output to the console directly 
+ Print the output to the console directly
 
 Arguments
 
@@ -13,11 +13,11 @@ Arguments
 
 Example
 
-    
+
     var info = logger('INFO:')
     info('this is an info message')
     // INFO: this is an info message
-    
+
     var warn = logger('WARN:')
     warn('this is a warning message', 'with more info')
     // WARN: this is a warning message with more info
@@ -27,3 +27,13 @@ Conditions
   * Use Function#bind
 
 */
+
+function logger(level) {
+  return console.log.bind(null, level);
+}
+
+const info = logger('INFO:');
+var warn = logger('WARN:');
+
+info('this is an info message');
+warn('this is a warning message', 'with more info')
