@@ -33,7 +33,7 @@ function logger(level) {
 }
 
 const info = logger('INFO:');
-var warn = logger('WARN:');
+const warn = logger('WARN:');
 
 info('this is an info message');
 warn('this is a warning message', 'with more info')

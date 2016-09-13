@@ -30,7 +30,7 @@ function countWords(words) {
   )
 }
 
-var inputWords = ['Apple', 'Banana', 'Apple', 'Durian', 'Durian', 'Durian']
+const inputWords = ['Apple', 'Banana', 'Apple', 'Durian', 'Durian', 'Durian']
 
 console.log(countWords(inputWords));
 
