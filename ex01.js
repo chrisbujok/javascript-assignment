@@ -16,7 +16,7 @@ const addFiveAndSixAnd = _.partial(
 );
 const power = _.partial(Math.pow, 2);
 const powerTwo = _.partial(Math.pow, _, 2);
-const powerThree = _.partial(Math.pow, 3);
+const powerThree = _.partial(Math.pow, _, 3);
 
 
 console.log(addFiveAndSixAnd(4)); //15 (adds 5 + 6 + 4 = 15)
