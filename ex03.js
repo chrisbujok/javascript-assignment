@@ -2,9 +2,10 @@
 
 // Tip. - flow is doing same thing as compose in functional programming
 
-var _ = require('lodash');
+const _ = require('lodash');
+const assert = require('assert');
 
-var users = [
+const users = [
   { 'user': 'barney',  'age': 36 },
   { 'user': 'fred',    'age': 40 },
   { 'user': 'pebbles', 'age': 1 }
@@ -12,25 +13,35 @@ var users = [
 
 /* --- helpers --- */
 
-var sort = _.curry(function(key, collection){
+const sort = _.curry(function(key, collection){
   return _.sortBy(collection, key);
 });
 
-var map = _.curry(function(fn, collection){
+const map = _.curry(function(fn, collection){
   return _.map(collection, fn);
 });
 
-var nicePrint = function(chr){
+const nicePrint = function(chr){
   return chr.user + ' is ' + chr.age;
 }
 
 /* --- */
 
-var youngest = _.flow([
+const youngest = _.flow([
   sort('age'),
   _.first,
   nicePrint
 ]);
 
-console.log( youngest(users) );
+const youngestMap = _.flow([
+  sort('age'),
+  map(nicePrint),
+  _.first
+]);
+
+console.log(youngest(users));
 // pebbles is 1
+console.log(youngestMap(users));
+
+assert.equal(youngest(users), 'pebbles is 1');
+assert.equal(youngestMap(users), 'pebbles is 1');
