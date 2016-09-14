@@ -82,11 +82,11 @@ Also contrast apply with Function.prototype.call:
 
 */
 
-function logger(level, fn) {
+function logger(namespace, fn) {
   return function() {
     console.log.apply(
-      null,
-      [level].concat([...arguments])
+      console,
+      [namespace].concat([...arguments])
     )
   };
 }

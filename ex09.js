@@ -28,8 +28,8 @@ Conditions
 
 */
 
-function logger(level) {
-  return console.log.bind(null, level);
+function logger(namespace) {
+  return console.log.bind(console, namespace);
 }
 
 const info = logger('INFO:');
